@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-cover bg-center flex items-center justify-center" :style="backgroundStyle">
+  <div class="min-h-screen bg-cover bg-center flex items-center justify-center">
     <form @submit.prevent="login" class="w-1/4 h-[600px] bg-white bg-opacity-90 p-6 rounded shadow-md max-w-2xl hover:shadow-amber-50 hover:shadow-2xl duration-700 flex items-center justify-center">
       <div class="items-center w-[370px]">
         <h2 class="text-lg font-bold">Hi, Welcome Back!</h2>
@@ -31,15 +31,12 @@ const username = ref('')
 const password = ref('')
 const router = useRouter()
 
-const backgroundStyle = computed(() => ({
-  backgroundImage: `url(${backgroundImg})`
-}))
+// const backgroundStyle = computed(() => ({
+//   backgroundImage: `url(${backgroundImg})`
+// }))
 
 const login = () => {
-  // Giriş işlemi logic
-  router.push('/homepage') // Girişten sonra home sayfasına yönlendirme
+  router.push('/home')
 }
 </script>
 
-<style scoped>
-</style>

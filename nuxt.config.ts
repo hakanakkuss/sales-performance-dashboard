@@ -10,4 +10,6 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  plugins: ['~/plugins/pinia'],
+  layout: 'default'
 })
