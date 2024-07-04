@@ -1,25 +1,10 @@
-<template>
-  <div ref="chart" style="width: 600px; height: 400px;"></div>
-</template>
-
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import * as echarts from 'echarts';
-import { useMockDataStore } from '~/stores/mockData'
 
-const mockDataStore = useMockDataStore()
-const { data } = await useAsyncData('mockData', async () => {
-  mockDataStore.fetchMockData()
-
-  return {
-    monthlySales: mockDataStore.monthlySales,
-    topSellingProducts: mockDataStore.topSellingProducts,
-    salesTargets: mockDataStore.salesTargets,
-    salesPerformanceByPeriod: mockDataStore.salesPerformanceByPeriod,
-    userSalesPerformance: mockDataStore.userSalesPerformance,
-  }
-})
 const chart = ref(null);
+const { data } = await useFetch('/api/mockData')
+
 
 onMounted(() => {
   const chartInstance = echarts.init(chart.value, 'dark')
@@ -90,6 +75,10 @@ onMounted(() => {
   chartInstance.setOption(option)
 })
 </script>
+
+<template>
+  <div ref="chart" style="width: 600px; height: 400px;"></div>
+</template>
 
 <style scoped>
 </style>

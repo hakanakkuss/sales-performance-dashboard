@@ -1,14 +1,22 @@
-<template>
-  <div ref="chart" style="width: 600px; height: 400px;"></div>
-</template>
-
 <script setup>
 import { ref, onMounted } from 'vue';
 import * as echarts from 'echarts';
 
 const chart = ref(null);
 
+const { data } = await useFetch('/api/mockData')
+
+const salesPerformanceByPeriodData = ref([])
+const salesPeriod = ref([])
+const datePeriod = ref([])
+
 onMounted(() => {
+  salesPerformanceByPeriodData.value = data.value.salesPerformanceByPeriod.daily
+  salesPerformanceByPeriodData.value.forEach(q => {
+    salesPeriod.value = q.sales
+    datePeriod.value = q.date
+  }
+  )
   const chartInstance = echarts.init(chart.value, 'dark');
   const option = {
     title: {
@@ -16,18 +24,20 @@ onMounted(() => {
     },
     tooltip: {},
     xAxis: {
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      data: [datePeriod.value]
     },
     yAxis: {},
     series: [{
-      name: 'Example',
+      name: 'Weekly',
       type: 'line',
-      data: [150, 230, 224, 218, 135, 147, 260]
+      data: [salesPeriod.value]
     }]
   };
   chartInstance.setOption(option);
 });
 </script>
 
-<style scoped>
-</style>
+<template>
+  <div ref="chart" style="width: 1600px; height: 400px;"></div>
+</template>
+
