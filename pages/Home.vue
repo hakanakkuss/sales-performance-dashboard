@@ -1,3 +1,9 @@
+<script setup lang="ts">
+
+import Navigation from "~/pages/Navigation.vue";
+
+</script>
+
 <template>
   <div class="h-screen">
     <div>
@@ -10,11 +16,5 @@
 
 </template>
 
-<script setup>
 
-import Navigation from "~/pages/Navigation.vue";
 
-</script>
-
-<style scoped>
-</style>

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import * as echarts from 'echarts';
 
@@ -38,6 +38,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="chart" style="width: 1600px; height: 400px;"></div>
+  <div ref="chart" style="width: 600px; height: 400px;"></div>
 </template>
 

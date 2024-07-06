@@ -46,7 +46,9 @@ export default defineEventHandler(async (event) => {
                 { "date": "2024-07-02", "sales": 2700 },
                 { "date": "2024-07-03", "sales": 2600 },
                 { "date": "2024-07-04", "sales": 2800 },
-                { "date": "2024-07-05", "sales": 3000 }
+                { "date": "2024-07-05", "sales": 3000 },
+                { "date": "2024-07-06", "sales": 1500 },
+                { "date": "2024-07-07", "sales": 6000 }
             ],
             weekly: [
                 { "week": "2024-06-24 to 2024-06-30", "sales": 18000 },

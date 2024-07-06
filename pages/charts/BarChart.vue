@@ -11,7 +11,7 @@ onMounted(() => {
 
   const option = {
     title: {
-      text: 'Sales Targets vs Actual Sales',
+      text: 'Sales Targets',
     },
     tooltip: {
       trigger: 'axis'

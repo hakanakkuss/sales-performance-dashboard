@@ -3,6 +3,7 @@ import Navigation from "~/pages/Navigation.vue";
 import PieChart from "~/pages/charts/PieChart.vue";
 import LineChart from "~/pages/charts/LineChart.vue";
 import BarChart from "~/pages/charts/BarChart.vue";
+import StackedLineChart from "~/pages/charts/StackedLineChart.vue";
 
 
 </script>
@@ -11,18 +12,24 @@ import BarChart from "~/pages/charts/BarChart.vue";
   <div>
     <Navigation />
   </div>
-  <div class="text-white mt-40 justify-center items-center">
-    <div class="flex max-w-7xl ml-52">
-      <p class="max-w-2xl">Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum </p>
-      <BarChart />
+  <div class="flex justify-center mx-auto py-6 px-4">
+    <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-1 xl:grid-cols-2">
+      <div class="p-6 rounded-lg shadow-md">
+        <LineChart />
+      </div>
+      <div class=" p-6 rounded-lg">
+        <BarChart />
+      </div>
+      <div class=" p-6 rounded-lg ">
+        <PieChart />
+      </div>
+      <div class=" p-6 rounded-lg ">
+        <StackedLineChart />
+      </div>
     </div>
-    <div class="flex mt-60 ml-52">
-      <LineChart />
-
-      <p class="max-w-2xl ml-20">Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum </p>
-    </div>
-
-<!--    <PieChart />-->
   </div>
+
+
+
 </template>
 

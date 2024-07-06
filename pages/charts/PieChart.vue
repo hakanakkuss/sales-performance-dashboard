@@ -1,24 +1,30 @@
-<template>
-  <div>
-    <div ref="chart" style="width: 600px; height: 400px;"></div>
-  </div>
-
-</template>
-
-<script setup>
-
+<script setup lang="ts">
 import * as echarts from "echarts";
-import {ref, onMounted} from "vue";
+import { ref, onMounted } from "vue";
 
 const chart = ref(null);
+const userSales = ref([]);
+const userSalesData = ref([]);
+
+const { data } = await useFetch('/api/mockData');
 
 
-onMounted(()=> {
+
+onMounted(() => {
   const chartInstance = echarts.init(chart.value, 'dark');
+  if (data.value) {
+    userSales.value = data.value.userSalesPerformance;
+
+    userSalesData.value = userSales.value.map(item => ({
+      name: item.user,
+      value: item.sales
+    }));
+  }
+
   const option = {
     title: {
-      text: 'Referer of a Website',
-      subtext: 'Fake Data',
+      text: 'User Sales Performance',
+      subtext: 'Mock Data',
       left: 'center'
     },
     tooltip: {
@@ -30,16 +36,10 @@ onMounted(()=> {
     },
     series: [
       {
-        name: 'Access From',
+        name: 'Sales',
         type: 'pie',
         radius: '50%',
-        data: [
-          { value: 1048, name: 'Search Engine' },
-          { value: 735, name: 'Direct' },
-          { value: 580, name: 'Email' },
-          { value: 484, name: 'Union Ads' },
-          { value: 300, name: 'Video Ads' }
-        ],
+        data: userSalesData.value,
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
@@ -50,9 +50,13 @@ onMounted(()=> {
       }
     ]
   };
+
   chartInstance.setOption(option);
-})
-
-
-
+});
 </script>
+
+<template>
+  <div>
+    <div ref="chart" style="width: 600px; height: 400px;"></div>
+  </div>
+</template>
