@@ -9,21 +9,21 @@ const showModal = ref(false);
 const itemToDelete = ref(null);
 
 const columnsMonthlySales = ref([
-  { title: 'Name', key: 'name' },
-  { title: 'Month', key: 'month' },
-  { title: 'Sales', key: 'sales' }
+  { key: 'name', label:'Name' },
+  { key: 'month', label:'Month' },
+  { key: 'sales', label: 'Sales' }
 ]);
 
 const columnsTopSellingProducts = ref([
-  { title: 'Product', key: 'product' },
-  { title: 'UnitsSold', key: 'unitsSold', sortable: true }
+  { key: 'product', label: 'Product' },
+  { key: 'unitsSold', label: 'UnitSolds', sortable: true }
 ]);
 
 const columnsSalesTargets = ref([
-  { title: 'Month', key: 'month' },
-  { title: 'Target', key: 'target', sortable: true },
-  { title: 'Actual', key: 'actual', sortable: true },
-  { title: 'Actions', key: 'actions' }
+  { key: 'month', label:'Month'},
+  { key: 'target', label:'Target', sortable: true },
+  { key: 'actual', label:'Actual' ,sortable: true },
+  { key: 'actions', label: 'Actions' }
 ]);
 
 
@@ -58,7 +58,10 @@ const closeModal = () => {
 
   <div class="flex flex-col space-y-10 mt-20 ml-72 mr-72 justify-center h-screen min-w-screen">
     <h1 class="text-white text-2xl">Sales Targets</h1>
-    <UTable class="text-white mt-20" :columns="columnsSalesTargets" :rows="salesTargets">
+    <UTable class="text-white mt-20" :columns="columnsSalesTargets" :rows="salesTargets" v-model:sort="sort" sort-mode="manual">
+      <template #name-data="{row}">
+<span class="bg-white">{{ row.month }}</span>
+      </template>
       <template #actions-data="{ row }">
         <button @click="confirmDelete(row.id)">
           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">

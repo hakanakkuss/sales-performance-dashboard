@@ -1,10 +1,6 @@
 // Refresh tokens
-let refreshTokens: any = {};
 
-// server/api/mockData.ts
-
-export default defineEventHandler(async (event) => {
-    const mockData = {
+const mockData = {
         monthlySales: [
             { "name": "user1", "month": "January", "sales": 50000 },
             { "name": "user2", "month": "February", "sales": 45000 },
@@ -66,6 +62,6 @@ export default defineEventHandler(async (event) => {
             { "user": "User 4", "sales": 15000 },
             { "user": "User 5", "sales": 18000 }
         ]
-    }
-    return mockData
-})
+    };
+
+export default mockData;

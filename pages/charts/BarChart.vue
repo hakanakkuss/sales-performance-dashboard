@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import * as echarts from 'echarts';
+import { useStore } from '~/stores/store'
 
+const store = useStore();
 const chart = ref(null);
-const { data } = await useFetch('/api/mockData')
-
 
 onMounted(() => {
+  store.initializeChartsData(); // Ensure the store is initialized
+
   const chartInstance = echarts.init(chart.value, 'dark')
+
+  const chartData = store.getChartData('salesTargets');
 
   const option = {
     title: {
@@ -29,48 +33,10 @@ onMounted(() => {
       }
     },
     calculable: true,
-    xAxis: [
-      {
-        type: 'category',
-        data: data.value.salesTargets.map(item => item.month)
-      }
-    ],
-    yAxis: [
-      {
-        type: 'value'
-      }
-    ],
-    series: [
-      {
-        name: 'Target',
-        type: 'bar',
-        data: data.value.salesTargets.map(item => item.target),
-        markPoint: {
-          data: [
-            { type: 'max', name: 'Max' },
-            { type: 'min', name: 'Min' }
-          ]
-        },
-        markLine: {
-          data: [{ type: 'average', name: 'Avg' }]
-        }
-      },
-      {
-        name: 'Actual',
-        type: 'bar',
-        data: data.value.salesTargets.map(item => item.actual),
-        markPoint: {
-          data: [
-            { type: 'max', name: 'Max' },
-            { type: 'min', name: 'Min' }
-          ]
-        },
-        markLine: {
-          data: [{ type: 'average', name: 'Avg' }]
-        }
-      }
-    ]
-  }
+    xAxis: chartData.xAxis,
+    yAxis: chartData.yAxis,
+    series: chartData.series
+  };
 
   chartInstance.setOption(option)
 })
@@ -80,5 +46,3 @@ onMounted(() => {
   <div ref="chart" style="width: 600px; height: 400px;"></div>
 </template>
 
-<style scoped>
-</style>

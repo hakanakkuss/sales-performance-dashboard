@@ -1,39 +1,28 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import * as echarts from 'echarts';
+import { useStore } from "~/stores/store";
 
 const chart = ref(null);
+const store = useStore();
 
-const { data } = await useFetch('/api/mockData')
-
-const salesPerformanceByPeriodData = ref([])
-const salesPeriod = ref([])
-const datePeriod = ref([])
 
 onMounted(() => {
-  salesPerformanceByPeriodData.value = data.value.salesPerformanceByPeriod.daily
-  salesPerformanceByPeriodData.value.forEach(q => {
-    salesPeriod.value = q.sales
-    datePeriod.value = q.date
-  }
-  )
-  const chartInstance = echarts.init(chart.value, 'dark');
-  const option = {
-    title: {
-      text: 'Haftalık Değerlendirme'
-    },
-    tooltip: {},
-    xAxis: {
-      data: [datePeriod.value]
-    },
-    yAxis: {},
-    series: [{
-      name: 'Weekly',
-      type: 'line',
-      data: [salesPeriod.value]
-    }]
-  };
-  chartInstance.setOption(option);
+  // store.initializeByPeriodWeekly();
+  // const chartData = store.getChartData('byPeriodWeekly');
+  // console.log(chartData.xAxis.data);
+
+  // const chartInstance = echarts.init(chart.value, 'dark');
+  //
+  // const option = {
+  //   title: chartData.title.text,
+  //   xAxis: {
+  //     data: chartData.xAxis.data,
+  //   },
+  //   yAxis: {},
+  //   series: chartData.series,
+  // };
+  // chartInstance.setOption(option);
 });
 </script>
 

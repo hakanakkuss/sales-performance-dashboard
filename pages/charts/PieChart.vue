@@ -1,55 +1,24 @@
 <script setup lang="ts">
 import * as echarts from "echarts";
 import { ref, onMounted } from "vue";
+import { useStore } from '~/stores/store'
 
+const store = useStore();
 const chart = ref(null);
-const userSales = ref([]);
-const userSalesData = ref([]);
-
-const { data } = await useFetch('/api/mockData');
-
-
 
 onMounted(() => {
-  const chartInstance = echarts.init(chart.value, 'dark');
-  if (data.value) {
-    userSales.value = data.value.userSalesPerformance;
 
-    userSalesData.value = userSales.value.map(item => ({
-      name: item.user,
-      value: item.sales
-    }));
-  }
+  const chartInstance = echarts.init(chart.value, 'dark');
+  store.initializeUserSalesPerformanceChartsData();
+
+  const chartData = store.getChartData('userSalesPerformance');
 
   const option = {
-    title: {
-      text: 'User Sales Performance',
-      subtext: 'Mock Data',
-      left: 'center'
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      orient: 'vertical',
-      left: 'left'
-    },
-    series: [
-      {
-        name: 'Sales',
-        type: 'pie',
-        radius: '50%',
-        data: userSalesData.value,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
-          }
-        }
-      }
-    ]
-  };
+    title: chartData.title,
+    tooltip: chartData.tooltip,
+    legend: chartData.legend,
+    series: chartData.series
+  }
 
   chartInstance.setOption(option);
 });

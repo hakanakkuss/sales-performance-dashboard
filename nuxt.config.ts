@@ -1,6 +1,8 @@
 // nuxt.config.js
+
 export default defineNuxtConfig({
   css: ['@/assets/css/tailwind.css'],
+
 
   buildModules: [
     '@nuxtjs/tailwindcss',
@@ -13,7 +15,12 @@ export default defineNuxtConfig({
     },
   },
 
-  plugins: ['~/plugins/pinia'],
   layout: 'profile',
-  modules: ["@nuxt/ui"]
+  modules: ["@nuxt/ui", '@pinia/nuxt', "nuxt-echarts"],
+  echarts: {
+    charts: ['BarChart', 'LineChart', 'PieChart','GaugeChart','RadarChart'],
+    renderer: ['svg', 'canvas'],
+    components: ['DatasetComponent', 'GridComponent', 'TooltipComponent','LegendComponent'],
+    features: ['LabelLayout', 'UniversalTransition']
+  }
 })
