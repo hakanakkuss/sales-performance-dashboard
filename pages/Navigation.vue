@@ -1,11 +1,24 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import { ref } from 'vue'
 
 const router = useRouter();
+
+const items = [
+ [{
+    label: 'Exit',
+    icon: 'i-heroicons-trash-20-solid',
+    click: () => {
+     console.log("sss")
+      navigateTo('/')
+   }
+  }]
+]
 
 const navigateTo = (page) => {
   router.push(`${page}`)
 }
+
 </script>
 
 <template>
@@ -25,21 +38,28 @@ const navigateTo = (page) => {
           Sales
         </li>
       </ul>
-<!--    <div class="flex justify-end">-->
-<!--      <svg-->
-<!--          xmlns="http://www.w3.org/2000/svg"-->
-<!--          width="2em"-->
-<!--          height="2em"-->
-<!--          viewBox="0 0 24 24"-->
-<!--      >-->
-<!--        <path-->
-<!--            fill="currentColor"-->
-<!--            d="M12 11.385q-1.237 0-2.119-.882T9 8.385t.881-2.12T12 5.386t2.119.88t.881 2.12t-.881 2.118t-2.119.882m-7 7.23V16.97q0-.619.36-1.158q.361-.54.97-.838q1.416-.679 2.834-1.018q1.417-.34 2.836-.34t2.837.34t2.832 1.018q.61.298.97.838q.361.539.361 1.158v1.646z"-->
-<!--        />-->
-<!--      </svg>-->
-<!--    </div>-->
-
+    <div class="flex justify-end ml-32 mt-4">
+      <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
+        <UAvatar
+            chip-color="green"
+            chip-text=""
+            chip-position="top-right"
+            size="sm"
+            src="https://avatars.githubusercontent.com/u/739984?v=4"
+            alt="Avatar"
+        />
+      </UDropdown>
+    </div>
   </div>
 
+<!--<UDivider-->
+<!--    loading-->
+<!--    :loading-state="{ icon: 'i-heroicons-arrow-path-20-solid' }"-->
+<!--    :progress="{ color: 'primary', animation: 'carousel' }"-->
+<!--    class="w-full"-->
+
+<!--/>-->
 </template>
+
+
 

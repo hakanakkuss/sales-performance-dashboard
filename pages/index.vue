@@ -2,11 +2,13 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import * as yup from 'yup';
+import { useAuthStore } from '~/stores/auth.store';
 
 const username = ref('');
 const password = ref('');
 const router = useRouter();
 const errors = ref<{ [key: string]: string }>({});
+const authStore = useAuthStore();
 
 // Yup şema tanımı
 const schema = yup.object().shape({
@@ -18,6 +20,15 @@ const login = async () => {
   try {
     // Form verilerini doğrulama
     await schema.validate({ username: username.value, password: password.value }, { abortEarly: false });
+
+    // Kimlik doğrulama isteği (örnek bir API çağrısı)
+    const user = { id: 1, name: 'John Doe' }; // Bu, örnek bir kullanıcı verisidir
+    const token = 'example-token'; // Bu, örnek bir token
+
+    // Kullanıcıyı ve token'ı auth store'da sakla
+    authStore.setUser(user);
+    authStore.setToken(token);
+
     // Doğrulama başarılı ise home sayfasına yönlendir
     router.push('/home');
   } catch (err) {
@@ -32,12 +43,11 @@ const login = async () => {
     }
   }
 };
-
 </script>
 
 <template>
   <div class="min-h-screen bg-cover bg-center flex items-center justify-center">
-    <form @submit.prevent="login" class="w-1/4 h-[600px] bg-[#6A717F] bg-opacity-10 p-6 rounded-2xl shadow-md max-w-2xl hover:shadow-neutral-450 hover:shadow-2xl duration-700 flex items-center justify-center">
+    <form @submit.prevent="login" class="w-1/4 h-[600px] bg-[#151D2A] bg-opacity-10 p-6 rounded-2xl shadow-md max-w-2xl hover:shadow-neutral-450 hover:shadow-2xl duration-700 flex items-center justify-center">
       <div class="items-center w-[370px]">
         <h2 class="text-lg font-bold">Hi, Welcome Back!</h2>
         <p class="font-light text-gray-500 text-xs">You can sign in or sign up!</p>
@@ -51,6 +61,14 @@ const login = async () => {
           <input v-model="password" type="password" id="password" class="font-extralight shadow rounded min-w-full py-2 px-3 text-white focus:shadow-outline" placeholder="Enter your password" required>
           <span v-if="errors.password" class="text-red-500 text-sm">{{ errors.password }}</span>
         </div>
+        <div class="flex items-center justify-center">
+          <button type="submit" class="min-w-full bg-[#38BDF8] hover:bg-[#7d8085] text-white font-extralight py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
+            Sign In
+          </button>
+        </div>
+        <UDivider label="OR"
+                  :ui="{ label: 'text-gray-400 dark:text-gray-400 w-full' }"
+        />
         <div class="flex items-center justify-center">
           <button type="submit" class="min-w-full bg-[#B4B8BF] hover:bg-[#7d8085] text-white font-extralight py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
             Create account

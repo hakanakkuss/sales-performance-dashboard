@@ -3,6 +3,7 @@ import Navigation from "~/pages/Navigation.vue";
 import ConfirmationModal from "./components/DeleteModal.vue";
 import { ref } from 'vue';
 
+
 const { data } = await useFetch('/api/mockData');
 const salesTargets = ref(data.value.salesTargets);
 const showModal = ref(false);

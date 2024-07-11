@@ -1,6 +1,11 @@
 import { defineStore } from 'pinia';
+import { daysOfWeek, names, salesData } from '~/server/api/mockData';
 import mockData from '~/server/api/mockData';
 
+import { useAuthStore } from '~/stores/auth.store';
+
+
+console.log(mockData)
 export const useStore = defineStore('chart', {
     state: () => ({
         chartsData: {},
@@ -83,6 +88,48 @@ export const useStore = defineStore('chart', {
                     }
                 ]
             });
-        }
+        },
+        // initializeSalesPerformanceByPeriodChartsData() {
+        //     const seriesData = names.map((name, index) => ({
+        //         name,
+        //         type: 'line',
+        //         stack: 'Total',
+        //         data: salesData[index],
+        //     }));
+        //
+        //     this.setChartData('userSalesPerformanceByPeriod', {
+        //         title: {
+        //             text: 'Stacked Line'
+        //         },
+        //         tooltip: {
+        //             trigger: 'axis'
+        //         },
+        //         legend: {
+        //             data: names
+        //         },
+        //         grid: {
+        //             left: '3%',
+        //             right: '4%',
+        //             bottom: '3%',
+        //             containLabel: true
+        //         },
+        //         xAxis: {
+        //             type: 'category',
+        //             boundaryGap: false,
+        //             data: daysOfWeek
+        //         },
+        //         yAxis: {
+        //             type: 'value'
+        //         },
+        //         series: seriesData
+        //     });
+        // },
+
+    },
+    getters: {
+        isUserAuthenticated() {
+            const authStore = useAuthStore();
+            return authStore.isAuthenticated;
+        },
     }
 });
