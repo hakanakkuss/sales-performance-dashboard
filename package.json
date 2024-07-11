@@ -18,8 +18,7 @@
     "nuxt-echarts": "^0.0.11",
     "vue": "latest",
     "vue-echarts": "^6.7.3",
-    "vue-grid-layout": "^2.4.0",
-    "vue3-grid-layout-next": "^1.0.7",
+    "vue3-grid-layout": "^1.0.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
