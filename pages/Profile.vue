@@ -11,10 +11,5 @@ definePageMeta({
   <div>
     <Navigation />
   </div>
-  <div class="text-white">
-    Profile Page
-  </div>
 </template>
 
-<style scoped>
-</style>

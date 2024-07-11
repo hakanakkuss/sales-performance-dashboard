@@ -1,8 +1,12 @@
+<script setup lang="ts">
+
+</script>
+
 <template>
   <div class="profile-layout">
     <header class="bg-purple-600 text-white p-4">
       <h1>Profile Page</h1>
-      <Navigation />
+<!--      <Navigation />-->
     </header>
     <main class="p-4">
       <Nuxt />
@@ -13,15 +17,7 @@
   </div>
 </template>
 
-<script>
-import Navigation from "~/pages/Navigation.vue";
 
-export default {
-  components: {
-    Navigation
-  }
-}
-</script>
 
 <style scoped>
 .profile-layout {

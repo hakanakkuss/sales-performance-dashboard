@@ -1,5 +1,6 @@
 // server/api/mockData.ts
 import { defineEventHandler } from 'h3';
+export default defineEventHandler(() => {
 
 const mockData = {
     monthlySales: [
@@ -65,23 +66,21 @@ const mockData = {
     ]
 };
 
-export default mockData
 
-// export default defineEventHandler(() => {
-//     return mockData;
-// });
+    return mockData;
+});
 
-const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-const names = ["User1", "User2", "User3", "User4", "User5"];
-
-const salesData = [
-    [150, 200, 170, 220, 180, 160, 190], // User1's sales
-    [180, 210, 160, 240, 170, 150, 200], // User2's sales
-    [140, 230, 180, 190, 160, 210, 220], // User3's sales
-    [200, 180, 190, 170, 220, 230, 160], // User4's sales
-    [220, 170, 210, 160, 230, 180, 200], // User5's sales
-];
-
-export { daysOfWeek, names, salesData };
+// const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+//
+// const names = ["User1", "User2", "User3", "User4", "User5"];
+//
+// const salesData = [
+//     [150, 200, 170, 220, 180, 160, 190], // User1's sales
+//     [180, 210, 160, 240, 170, 150, 200], // User2's sales
+//     [140, 230, 180, 190, 160, 210, 220], // User3's sales
+//     [200, 180, 190, 170, 220, 230, 160], // User4's sales
+//     [220, 170, 210, 160, 230, 180, 200], // User5's sales
+// ];
+//
+// export { daysOfWeek, names, salesData };
 

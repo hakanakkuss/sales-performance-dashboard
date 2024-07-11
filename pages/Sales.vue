@@ -1,17 +1,41 @@
 <script setup lang="ts">
 import Navigation from "~/pages/Navigation.vue";
 import ConfirmationModal from "./components/DeleteModal.vue";
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 
 
-const { data } = await useFetch('/api/mockData');
-const salesTargets = ref(data.value.salesTargets);
+//-----const chartData : ****null, {}, boolean**** = ref() böyle kullanabilirsin
+
+//-----await kullanılırsa akış durur blocking olur
+//-----then kullanırsan non blocking
+
+//------datalara gelene kadar loader görünsün
+//------lifecycles kullan
+
+
+const chartData: any = ref(null);
+const salesTargets = ref([]);
 const showModal = ref(false);
 const itemToDelete = ref(null);
 
+onBeforeMount( () => {
+  useFetch('/api/mockDataV2').then(({data,error}) => {
+    if(error.value){
+      console.log("error", error.value);
+    }else {
+    chartData.value = data.value
+      salesTargets.value = data.value.salesTargets;
+    }
+  }).catch(error => {
+    console.log('fetch error', error)
+  })
+});
+
+
+
 const columnsMonthlySales = ref([
-  { key: 'name', label:'Name' },
-  { key: 'month', label:'Month' },
+  { key: 'name', label: 'Name' },
+  { key: 'month', label: 'Month' },
   { key: 'sales', label: 'Sales' }
 ]);
 
@@ -21,12 +45,11 @@ const columnsTopSellingProducts = ref([
 ]);
 
 const columnsSalesTargets = ref([
-  { key: 'month', label:'Month'},
-  { key: 'target', label:'Target', sortable: true },
-  { key: 'actual', label:'Actual' ,sortable: true },
+  { key: 'month', label: 'Month' },
+  { key: 'target', label: 'Target', sortable: true },
+  { key: 'actual', label: 'Actual', sortable: true },
   { key: 'actions', label: 'Actions' }
 ]);
-
 
 
 const removeItem = () => {
@@ -43,25 +66,28 @@ const closeModal = () => {
   showModal.value = false;
   itemToDelete.value = null;
 };
+
+
 </script>
 
 <template>
   <Navigation />
   <div class="flex flex-col space-y-10 mt-20 ml-72 mr-72 justify-center h-screen min-w-screen">
     <h1 class="text-white text-2xl">Monthly Sales</h1>
-    <UTable class="text-white mt-20" :columns="columnsMonthlySales" :rows="data.monthlySales" />
+    <UTable v-if="chartData" class="text-white mt-20" :columns="columnsMonthlySales" :rows="chartData.monthlySales" />
+    <p v-else class="text-white">Loading...</p>
   </div>
 
   <div class="flex flex-col space-y-10 mt-20 ml-72 mr-72 justify-center h-screen min-w-screen">
     <h1 class="text-white text-2xl">Top Selling Products</h1>
-    <UTable class="text-white mt-20" :columns="columnsTopSellingProducts" :rows="data.topSellingProducts"> </UTable>
+    <UTable v-if="chartData" class="text-white mt-20" :columns="columnsTopSellingProducts" :rows="chartData.topSellingProducts"> </UTable>
   </div>
 
   <div class="flex flex-col space-y-10 mt-20 ml-72 mr-72 justify-center h-screen min-w-screen">
     <h1 class="text-white text-2xl">Sales Targets</h1>
     <UTable class="text-white mt-20" :columns="columnsSalesTargets" :rows="salesTargets" v-model:sort="sort" sort-mode="manual">
-      <template #name-data="{row}">
-<span class="bg-white">{{ row.month }}</span>
+      <template #name-data="{ row }">
+        <span class="bg-white">{{ row.month }}</span>
       </template>
       <template #actions-data="{ row }">
         <button @click="confirmDelete(row.id)">

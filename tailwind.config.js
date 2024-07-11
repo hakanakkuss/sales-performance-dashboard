@@ -44,6 +44,10 @@ export default {
       '6xl': ['4rem', {
         lineHeight: '100%',
         letterSpacing: '-0.02em',
+      }],
+      '7xl': ['5rem', {
+        lineHeight: '100%',
+        letterSpacing: '-0.02em',
       }]
     },
     backgroundImage: {
