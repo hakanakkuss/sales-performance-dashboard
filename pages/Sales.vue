@@ -19,7 +19,7 @@ const showModal = ref(false);
 const itemToDelete = ref(null);
 
 onBeforeMount( () => {
-  useFetch('/api/mockDataV2').then(({data,error}) => {
+  useFetch('/api/mockData').then(({data,error}) => {
     if(error.value){
       console.log("error", error.value);
     }else {

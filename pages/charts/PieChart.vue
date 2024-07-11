@@ -1,27 +1,32 @@
 <script setup lang="ts">
 import * as echarts from "echarts";
-import { ref, onMounted } from "vue";
-import { useStore } from '~/stores/store'
+import { ref, onMounted, watch } from "vue";
+import { useStore } from '~/stores/store';
 
 const store = useStore();
 const chart = ref(null);
+const chartData = ref(null);
 
-onMounted(() => {
 
-  const chartInstance = echarts.init(chart.value, 'dark');
-  store.initializeUserSalesPerformanceChartsData();
-
-  const chartData = store.getChartData('userSalesPerformance');
-
-  const option = {
-    title: chartData.title,
-    tooltip: chartData.tooltip,
-    legend: chartData.legend,
-    series: chartData.series
-  }
-
-  chartInstance.setOption(option);
+onMounted(async () => {
+  await store.initializeChartsData();
+  chartData.value = store.getChartData('userSalesPerformance');
+  initializeChart();
 });
+
+const initializeChart = () => {
+  if (chart.value && chartData.value) {
+    const chartInstance = echarts.init(chart.value, 'dark');
+    const option = {
+      title: chartData.value.title,
+      tooltip: chartData.value.tooltip,
+      legend: chartData.value.legend,
+      series: chartData.value.series,
+    };
+    chartInstance.setOption(option);
+  }
+};
+
 </script>
 
 <template>

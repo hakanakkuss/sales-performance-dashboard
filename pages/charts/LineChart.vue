@@ -5,25 +5,33 @@ import { useStore } from "~/stores/store";
 
 const chart = ref(null);
 const store = useStore();
+const chartData = ref(null);
 
 
-onMounted(() => {
-  // store.initializeByPeriodWeekly();
-  // const chartData = store.getChartData('byPeriodWeekly');
-  // console.log(chartData.xAxis.data);
+onMounted(async () => {
+  // await store.initializeByPeriodWeekly();
+  chartData.value = store.getChartData('userSalesPerformanceByPeriod');
+  // initializeChart()
 
-  // const chartInstance = echarts.init(chart.value, 'dark');
-  //
-  // const option = {
-  //   title: chartData.title.text,
-  //   xAxis: {
-  //     data: chartData.xAxis.data,
-  //   },
-  //   yAxis: {},
-  //   series: chartData.series,
-  // };
-  // chartInstance.setOption(option);
 });
+
+const initializeChart = () => {
+  if(chart.value && chartData.value){
+    const chartInstance = echarts.init(chart.value, 'dark');
+    const option = {
+      title: chartData.title.text,
+      xAxis: {
+        data: chartData.xAxis.data,
+      },
+      yAxis: {},
+      series: chartData.series,
+    };
+    chartInstance.setOption(option);
+  }
+}
+
+
+
 </script>
 
 <template>
