@@ -8,9 +8,11 @@
       <h1>Profile Page</h1>
 <!--      <Navigation />-->
     </header>
-    <main class="p-4">
-      <Nuxt />
-    </main>
+
+      <div class="min-h-screen bg-white">
+        <button class="justify-center items-center text-black">Go To Home Page</button>
+      </div>
+
     <footer class="bg-gray-800 text-white p-4">
       <p>&copy; 2024 My Website - Profile</p>
     </footer>

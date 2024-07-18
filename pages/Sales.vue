@@ -32,7 +32,6 @@ onBeforeMount( () => {
 });
 
 
-
 const columnsMonthlySales = ref([
   { key: 'name', label: 'Name' },
   { key: 'month', label: 'Month' },
@@ -75,8 +74,10 @@ const closeModal = () => {
   <div class="flex flex-col space-y-10 mt-20 ml-72 mr-72 justify-center h-screen min-w-screen">
     <h1 class="text-white text-2xl">Monthly Sales</h1>
     <UTable v-if="chartData" class="text-white mt-20" :columns="columnsMonthlySales" :rows="chartData.monthlySales" />
-    <p v-else class="text-white">Loading...</p>
+
+    <USkeleton v-else class="h-4 w-full" />
   </div>
+
 
   <div class="flex flex-col space-y-10 mt-20 ml-72 mr-72 justify-center h-screen min-w-screen">
     <h1 class="text-white text-2xl">Top Selling Products</h1>

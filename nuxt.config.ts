@@ -1,6 +1,9 @@
 // nuxt.config.js
 
 export default defineNuxtConfig({
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
   css: ['@/assets/css/tailwind.css'],
 
   ssr:false,
